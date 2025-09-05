@@ -1,0 +1,376 @@
+{
+  "info": {
+    "name": "API Sensores - Gas y Movimiento",
+    "description": "Colección de Postman para probar la API de sensores de gas y movimiento",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Sensor de Gas",
+      "item": [
+        {
+          "name": "GET - Obtener todos los registros",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/gas?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "gas"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Último registro",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/gas/latest",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "gas", "latest"]
+            }
+          }
+        },
+        {
+          "name": "GET - Por rango de fechas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/gas/date-range?startDate=2025-01-01&endDate=2025-12-31",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "gas", "date-range"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2025-12-31"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Estadísticas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/gas/statistics",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "gas", "statistics"]
+            }
+          }
+        },
+        {
+          "name": "GET - Por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/gas/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "gas", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "ID_DEL_REGISTRO"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST - Crear registro",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fecha_hora\": \"2025-08-29 19:25:50\",\n  \"nivel_gas\": 2890,\n  \"ventilador\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/gas",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "gas"]
+            }
+          }
+        },
+        {
+          "name": "PUT - Actualizar registro",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nivel_gas\": 3500,\n  \"ventilador\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/gas/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "gas", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "ID_DEL_REGISTRO"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar registro",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/gas/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "gas", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "ID_DEL_REGISTRO"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sensor de Movimiento",
+      "item": [
+        {
+          "name": "GET - Obtener todos los registros",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/motion?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "motion"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Último registro",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/motion/latest",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "motion", "latest"]
+            }
+          }
+        },
+        {
+          "name": "GET - Por rango de fechas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/motion/date-range?startDate=2025-01-01&endDate=2025-12-31",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "motion", "date-range"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2025-12-31"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Movimiento detectado",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/motion/motion-detected?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "motion", "motion-detected"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Alarma activada",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/motion/alarm-activated?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "motion", "alarm-activated"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Estadísticas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/motion/statistics",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "motion", "statistics"]
+            }
+          }
+        },
+        {
+          "name": "GET - Por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/motion/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "motion", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "ID_DEL_REGISTRO"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST - Crear registro",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fecha_hora\": \"2025-08-29 19:25:40\",\n  \"movimiento\": 1,\n  \"alarma\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/motion",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "motion"]
+            }
+          }
+        },
+        {
+          "name": "PUT - Actualizar registro",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"movimiento\": 0,\n  \"alarma\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/motion/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "motion", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "ID_DEL_REGISTRO"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar registro",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/motion/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "motion", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "ID_DEL_REGISTRO"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "General",
+      "item": [
+        {
+          "name": "GET - Endpoint principal",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
