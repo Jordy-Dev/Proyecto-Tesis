@@ -167,10 +167,10 @@ const LoginPage: React.FC = () => {
             </div>
             
             <h1 ref={titleRef} className="text-4xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
-              IoT Nexus
+              Sensores IoT 
             </h1>
             <p ref={subtitleRef} className="text-lg" style={{ color: 'var(--text-secondary)' }}>
-              Conecta con tu universo digital
+              Monitoreo de Vibraciones y Gases
             </p>
           </div>
 

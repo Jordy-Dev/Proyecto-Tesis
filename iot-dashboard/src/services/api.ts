@@ -1,6 +1,6 @@
 import type { GasSensorData, MotionSensorData, GasStatistics, MotionStatistics, DashboardStats } from '../types';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://tesis-api.up.railway.app/api';
 
 export class ApiService {
   // Gas Sensor (Air Quality) Methods
@@ -140,11 +140,9 @@ export class ApiService {
   // Dashboard Stats
   static async getDashboardStats(): Promise<DashboardStats> {
     try {
-      const [gasStats, motionStats, latestGas, latestMotion] = await Promise.all([
+      const [gasStats, motionStats] = await Promise.all([
         this.getGasStatistics(),
-        this.getMotionStatistics(),
-        this.getLatestGasSensor(),
-        this.getLatestMotionSensor()
+        this.getMotionStatistics()
       ]);
 
       return {
@@ -155,7 +153,7 @@ export class ApiService {
         ventilatorActivations: gasStats.ventiladorActivado,
         motionDetections: motionStats.movimientoDetectado,
         alarmActivations: motionStats.alarmaActivada,
-        lastUpdate: latestGas?.fecha_hora || latestMotion?.fecha_hora || new Date().toISOString()
+        lastUpdate: new Date().toISOString() // Puedes actualizar esto desde el hook si lo necesitas más preciso
       };
     } catch (error) {
       console.error('Error fetching dashboard stats:', error);

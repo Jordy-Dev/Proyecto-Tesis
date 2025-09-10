@@ -5,29 +5,28 @@ import { ApiService } from '../services/api';
 export const useSensors = () => {
   const [gasSensors, setGasSensors] = useState<GasSensorData[]>([]);
   const [motionSensors, setMotionSensors] = useState<MotionSensorData[]>([]);
-  const [latestGasSensor, setLatestGasSensor] = useState<GasSensorData | null>(null);
-  const [latestMotionSensor, setLatestMotionSensor] = useState<MotionSensorData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [stats, setStats] = useState<DashboardStats | null>(null);
+
+  // Calcula el último registro localmente
+  const latestGasSensor = gasSensors.length > 0 ? gasSensors[0] : null;
+  const latestMotionSensor = motionSensors.length > 0 ? motionSensors[0] : null;
 
   const fetchSensors = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      
-      const [gasData, motionData, latestGas, latestMotion, dashboardStats] = await Promise.all([
+
+      // Solo dos llamadas principales
+      const [gasData, motionData, dashboardStats] = await Promise.all([
         ApiService.getGasSensors(1, 50),
         ApiService.getMotionSensors(1, 50),
-        ApiService.getLatestGasSensor(),
-        ApiService.getLatestMotionSensor(),
         ApiService.getDashboardStats()
       ]);
 
       setGasSensors(gasData.data);
       setMotionSensors(motionData.data);
-      setLatestGasSensor(latestGas);
-      setLatestMotionSensor(latestMotion);
       setStats(dashboardStats);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
@@ -42,10 +41,10 @@ export const useSensors = () => {
 
   useEffect(() => {
     fetchSensors();
-    
-    // Actualizar datos cada 30 segundos
-    const interval = setInterval(fetchSensors, 30000);
-    
+
+    // Actualizar datos cada 2 minutos (120000 ms)
+    const interval = setInterval(fetchSensors, 120000);
+
     return () => clearInterval(interval);
   }, [fetchSensors]);
 
